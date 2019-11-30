@@ -27,14 +27,16 @@
           <v-col v-for="(item, i) in series.slice(0,docs_per_page*page)" :key="i" cols="12" sm="4" md="3">
 
             <v-card outlined height="300" tile 
-              @click="$router.push(`/series/${item.docId}`)"
-              hover>
+            
+            >
               <v-img :src="item.cover_image || require('@/assets/tsg.jpg')"
-              width="100%" height="150">
+              width="100%" height="150" class="linkify"
+              @click="$router.push(`/series/${item.docId}`)">
 
               </v-img>
 
-              <v-card-title class="" style="font-size: 18px;">
+              <v-card-title class="linkify primary--text" style="font-size: 18px;"
+                @click="$router.push(`/series/${item.docId}`)">
                 {{$helpers.truncateText(item.title, 25)}}
               </v-card-title>
 

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-container grid-list-xs>
+    <v-container style="min-height: 85vh;">
       <v-row fill-height>
         <v-col cols="12">
           <v-card height="300" flat class="py-3">
-            <v-img :src="require('@/assets/404.svg')" height="100%" width="100%" contain/>
+            <v-img :src="require('@/assets/tsg.jpg')" height="100%" width="100%" contain/>
           </v-card>
         </v-col>
         <v-col justify="center" class="text-center">

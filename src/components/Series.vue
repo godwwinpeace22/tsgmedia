@@ -8,6 +8,9 @@
           
 
           <!-- <transition name="fade"> -->
+            <v-btn icon @click.native="$router.back()">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
 
             <v-skeleton-loader
               class="mx-auto"

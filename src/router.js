@@ -2,6 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import {firebase} from './plugins/firebase'
+import Home from '@/components/Home.vue'
+import Series from '@/components/Series.vue'
+import Admin from '@/components/Admin.vue'
+import notFound from "@/views/404.vue"
+import Login from '@/views/Login.vue'
 
 Vue.use(Router)
 
@@ -41,36 +46,36 @@ const router = new Router({
         {
           path: '',
           name: 'home',
-          component: () => import('@/components/Home.vue')
+          component: Home
         },
         {
           path: '/series/:id',
           name: 'series',
           props: true,
-          component: () => import('@/components/Series.vue')
+          component: Series
         },
         {
           path: '/admin',
-          component: () => import('@/components/Admin.vue'),
+          component: Admin,
           beforeEnter: requireAuth
         },
         {
           path: '/404',
           name: '404',
-          component: () => import('./views/404.vue')
+          component: notFound
         }
       ]
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "about" */ './views/Login.vue'),
+      component: Login,
       beforeEnter: requireLogout
     },
     {
       path: '/404',
       name: '404_',
-      component: () => import('./views/404.vue')
+      component: notFound
     }
   ]
 })

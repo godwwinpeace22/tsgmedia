@@ -48,12 +48,20 @@
         
         <router-view/>
 
-        <v-footer class="grey darken-3">
+        <v-footer class="grey darken-4">
           <v-row justify="center">
             
             <v-col cols="12" text-center class="white--text">
-              &copy; {{new Date().getFullYear()}} —
-              <strong>TSG Media</strong>
+              <v-card flat color="transparent" dark>
+                <v-card-actions>
+                  <router-link to="/admin" id="hide-action">&copy;</router-link> {{new Date().getFullYear()}} —
+                  <strong>TSG Media</strong>
+                  
+                  <v-spacer></v-spacer>
+
+                  <a :href="websiteLink" id="me" target="blank">Unplugged</a>
+                </v-card-actions>
+              </v-card>
             </v-col>
           </v-row>
         </v-footer>
@@ -85,6 +93,7 @@
     data: () => ({
       showUi: false,
       snackbar: {},
+      websiteLink: 'https://godwingabriel.xyz',
       appUpdateAvailable: window.appUpdateAvailable
     }),
     watch: {
@@ -134,7 +143,14 @@
 </script>
 
 <style>
-
+  #hide-action {
+    color: #fff;
+    text-decoration: none;
+  }
+  #me {
+    color: #8bc34a;
+    text-decoration: none;
+  }
   .fade-enter-active, .fade-leave-active {
     transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }

@@ -70,7 +70,7 @@ export default {
     return {
       email: '',
       password: '',
-      adminEmail: 'tsgmedia@gmail.com',
+      adminEmail: 'tsgmedia13@gmail.com',
       snackbar: {},
       loading: false,
       reset_email: '',
@@ -86,9 +86,9 @@ export default {
     async login(){
       try {
 
-        // if(this.email != this.adminEmail){
-        //   return 
-        // }
+        if(this.email != this.adminEmail){
+          return 
+        }
 
         this.loading = true
         let msg = await this.$store

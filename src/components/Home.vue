@@ -57,7 +57,7 @@
           </v-col>
 
           <v-col cols="12">
-            <v-pagination v-show="series.length >= docs_per_page"
+            <v-pagination v-if="series.length >= docs_per_page"
               v-model="page"
               :length="(series.length)/docs_per_page"
               circle

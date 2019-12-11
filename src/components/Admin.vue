@@ -40,7 +40,7 @@
             </v-list-item>
 
             <v-card-actions>
-              <v-btn text @click="selected_series = item; new_sermon_dialog = true;">Add Sermon</v-btn>
+              <v-btn text @click="selected_series = item; new_sermon_dialog = true;">Add item</v-btn>
               <v-spacer></v-spacer>
               <v-btn
                 icon

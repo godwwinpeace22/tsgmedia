@@ -45,15 +45,12 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-
-              <!-- <vue-recaptcha :sitekey="RecaptchaSiteKey" :loadRecaptchaScript="true"> -->
                 
                 <v-btn color="red" large
                   dark @click="login"
                   :loading="loading">
                   Login
                 </v-btn>
-              <!-- </vue-recaptcha> -->
 
             </v-card-actions>
           </v-card>
@@ -76,7 +73,6 @@ export default {
       reset_email: '',
       alert: {show: false},
       dialog: false,
-      RecaptchaSiteKey: '6LceGLwUAAAAABc7kEK3-ryntQqiveq2PpCNcHd5'
     }
   },
   computed: {
@@ -112,13 +108,10 @@ export default {
     },
   },
   components: {
-    // Navigation
-    VueRecaptcha,
+    
   }
 }
 
-// import Navigation from '@/components/Navigation'
-import VueRecaptcha from 'vue-recaptcha';
 </script>
 
 <style lang="scss">

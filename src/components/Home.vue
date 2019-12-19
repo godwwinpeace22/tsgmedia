@@ -5,7 +5,9 @@
       <vue-headful :title="title"></vue-headful>
 
       <transition name="fade">
-        <v-overlay v-if="!showUi"></v-overlay>
+        <v-overlay v-if="!showUi">
+          <v-progress-circular indeterminate size="64" :opacity="0.7"></v-progress-circular>
+        </v-overlay>
         <v-row v-else>
           <v-col cols="12">
             <!-- <v-toolbar

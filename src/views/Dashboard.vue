@@ -138,12 +138,8 @@
     },
   }
 
-  console.log(docuhelp)
-
   // window.appUpdateAvailable = true
   import { mapState, mapGetters } from 'vuex'
-  const docuhelp = require("@/docuhelp")
-  // import docuhelp from '@/docuhelp.js'
 </script>
 
 <style>

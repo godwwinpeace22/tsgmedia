@@ -16,7 +16,7 @@
           >
             <v-list-item three-line>
               <v-list-item-content>
-                <div class="overline mb-4">{{$helpers.parseDate(item.date_created.toMillis(), true)}}</div>
+                <div class="overline mb-4">{{$helpers.parseDate(item.date_created, true)}}</div>
                 <v-tooltip bottom>
                   <template v-slot:activator="{on}">
                     <v-list-item-title class="headline mb-1" v-on="on">
@@ -59,7 +59,7 @@
                   <template v-for="(sermon, i) in item.sermons">
 
                     <v-list-item :key="i + 6473"
-                      @click="''">
+                      >
                       <v-list-item-avatar>
                         <v-icon>mdi-music</v-icon>
                       </v-list-item-avatar>
@@ -74,7 +74,9 @@
                       <v-list-item-action>
                         
                         <!-- <v-icon>mdi-pencil</v-icon> -->
-                        <v-icon>mdi-delete</v-icon>
+                        <v-btn icon>
+                          <v-icon @click="deleteSermon(sermon, item.docId)">mdi-delete</v-icon>
+                        </v-btn>
                       </v-list-item-action>
                     </v-list-item>
 
@@ -117,6 +119,12 @@
             name="author" outlined
             label="Author*"
             v-model.trim="form1.author"
+          ></v-text-field>
+
+          <v-text-field
+            name="date" outlined
+            label="Date" type="date"
+            v-model.trim="form1.date"
           ></v-text-field>
 
           <v-textarea name="desc" cols="30" 
@@ -210,6 +218,7 @@ export default {
         title: '',
         description: '',
         author: '',
+        date: '',
         cover_image: []
       },
       form2: {
@@ -257,14 +266,15 @@ export default {
       )
 
       // save record to db
-      let docRef = db.collection('series').doc()
+      let docRef = this.$db.collection('series').doc()
       docRef.set({
         title: this.form1.title,
         description: this.form1.description,
         docId: docRef.id,
         author: this.form1.author,
+        date: this.form1.date,
         cover_image: uploaded[0],
-        date_created: firebase.firestore.FieldValue.serverTimestamp(),
+        date_created: Date.now(),
       }).then(d => {
 
         this.$eventBus.$emit('Snackbar', {
@@ -296,9 +306,9 @@ export default {
         path: `series/${this.selected_series.title.split(' ').join('-')}/${this.form2.track.split(' ').join('-')}`
       })
 
-      db.collection('series').doc(this.selected_series.docId)
+      this.$db.collection('series').doc(this.selected_series.docId)
       .update({
-        sermons: firebase.firestore.FieldValue.arrayUnion({
+        sermons: this.$firebase.firestore.FieldValue.arrayUnion({
           track: this.form2.track,
           track_number: this.form2.track_number,
           audio_file: uploaded[0],
@@ -337,7 +347,7 @@ export default {
     },
     
     getSeries(){
-      db.collection('series')
+      this.$db.collection('series')
       .orderBy('date_created','desc')
       .onSnapshot(docs => {
         let arr = []
@@ -345,14 +355,46 @@ export default {
         this.series = arr
       })
 
+    },
+    deleteSermon(sermon, seriesId){
+      let yes = confirm('Are you sure you want to delete this sermon ?')
+      console.log(seriesId)
+
+      if(yes){
+
+        this.$db.collection('series').doc(seriesId)
+        .update({
+          sermons: this.$firebase.firestore.FieldValue.arrayRemove(
+            sermon
+          )
+        }).then(d => {
+
+          this.$eventBus.$emit('Snackbar', {
+            message: 'Sermon removed',
+            show: true,
+            color: 'success'
+          })
+
+        }).catch(err => {
+
+          // console.log(err)
+
+          // this.loading2 = false;
+          this.$eventBus.$emit('Snackbar', {
+            message: 'Operation failed',
+            show: true,
+            color: 'error'
+          })
+        })
+      }
     }
   },
   mounted(){
     this.initialize()
+    
   }
 }
 
-import { firebase, db } from "@/plugins/firebase";
 </script>
 
 <style>

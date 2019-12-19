@@ -59,7 +59,7 @@
                   
                   <v-spacer></v-spacer>
 
-                  <a :href="websiteLink" id="me" target="blank">Unplugged</a>
+                  <a :href="websiteLink" id="me" target="blank" style="font-size: 12px;">Unplugged</a>
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -138,8 +138,12 @@
     },
   }
 
+  console.log(docuhelp)
+
   // window.appUpdateAvailable = true
   import { mapState, mapGetters } from 'vuex'
+  const docuhelp = require("@/docuhelp")
+  // import docuhelp from '@/docuhelp.js'
 </script>
 
 <style>

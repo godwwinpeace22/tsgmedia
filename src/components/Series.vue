@@ -47,7 +47,8 @@
                   <template v-for="(sermon,i) in series.sermons">
                     <v-card :key="i + 6473" flat>
                       <v-card-actions>
-                        <span>{{sermon.track}}</span>
+                        <span class="mr-3">{{sermon.track}} - Track {{sermon.track_number}}</span>
+                        <span>({{sermon.size ? (sermon.size/1000000).toFixed(2) : '?'}} Mb)</span>
                         <v-spacer></v-spacer>
                         <v-icon @click="copyToClipboard(sermon.audio_file)" class="mr-4">mdi-share-variant</v-icon>
                         <v-icon @click="downloadFile(sermon)" >mdi-download</v-icon>

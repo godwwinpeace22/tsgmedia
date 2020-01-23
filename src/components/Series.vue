@@ -51,7 +51,9 @@
                         <span>({{sermon.size ? (sermon.size/1000000).toFixed(2) : '?'}} Mb)</span>
                         <v-spacer></v-spacer>
                         <v-icon @click="copyToClipboard(sermon.audio_file)" class="mr-4">mdi-share-variant</v-icon>
-                        <v-icon @click="downloadFile(sermon)" >mdi-download</v-icon>
+                        <v-btn icon :href="sermon.audio_file" target="_blank">
+                          <v-icon>mdi-download</v-icon>
+                        </v-btn>
                       </v-card-actions>
                     </v-card>
                     <v-divider :key="i"></v-divider>

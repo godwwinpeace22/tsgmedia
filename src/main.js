@@ -8,7 +8,8 @@ import { bus } from './plugins/bus'
 import './registerServiceWorker'
 import { firebase, db, database, app } from '@/plugins/firebase'
 import helpers from '@/plugins/helpers'
-import vueHeadful from 'vue-headful';
+import vueHeadful from 'vue-headful'
+import VueGtag from 'vue-gtag'
 
 Vue.config.productionTip = false
 const plugin = {
@@ -24,6 +25,14 @@ const plugin = {
 }
 
 Vue.component('vue-headful', vueHeadful);
+
+Vue.use(VueGtag, {
+  config: {
+    id: 'UA-117131997-4',
+    appName: 'Tsg-media',
+    pageTrackerScreenviewEnabled: true
+  }
+}, router)
 
 Vue.use(plugin)
 

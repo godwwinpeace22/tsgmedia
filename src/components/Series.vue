@@ -159,6 +159,13 @@ export default {
         }
       }
     },
+    track (sermon) {
+      this.$gtag.event('download_sermon', {
+        event_category: sermon.title,
+        event_label: 'track_number',
+        value: sermon.track_number
+      })
+    },
     downloadFile(sermon){
       var el = document.createElement('a')
       el.setAttribute('href', sermon.audio_file)
@@ -169,6 +176,8 @@ export default {
         message: 'You download has started!',
         color: 'purple'
       })
+
+      this.track(sermon)
     }
   },
   mounted(){

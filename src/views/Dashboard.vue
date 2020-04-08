@@ -1,17 +1,9 @@
 <template>
   <div >
-
-  <!-- <transition name="fade" mode="out-in"> -->
-    <template>
-      <!-- <loading-bar height="65vh"></loading-bar> -->
-      <v-overlay :value="!showUi">
-        <v-progress-circular indeterminate size="64" :opacity="0.7"></v-progress-circular>
-      </v-overlay>
-    </template>
-
     <template v-if="showUi">
 
       <v-app-bar color="primary" flat dark dense app fixed>
+        <img :src="require('@/assets/tsg-logo.jpg')" contain width="40px" height="40px"/>
         <span class="title ml-3 mr-5 linkify" @click="$router.push('/')">TSG Media</span>
         <v-spacer></v-spacer>
         
@@ -48,22 +40,19 @@
         
         <router-view/>
 
-        <v-footer class="grey darken-4">
-          <v-row justify="center">
-            
-            <v-col cols="12" text-center class="white--text">
-              <v-card flat color="transparent" dark>
-                <v-card-actions>
-                  <router-link to="/admin" id="hide-action">&copy;</router-link> {{new Date().getFullYear()}} —
-                  <strong>TSG Media</strong>
-                  
-                  <v-spacer></v-spacer>
+        <v-footer class="grey darken-4 grey--text" >
+          <router-link to="/admin" id="hide-action">
+            <span class="mr-1">&copy;</span>
+          </router-link>
 
-                  <a :href="websiteLink" id="me" target="blank" style="font-size: 12px;">Unplugged</a>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
+          <span>{{new Date().getFullYear()}} —</span>
+
+          <span class="ml-3">TSG Media</span>
+          <small class="ml-5 grey--text">
+            The Saints Gathering Church,  FBA Hall1, Unec 
+            Enugu.
+          </small>
+          
         </v-footer>
       </v-content>
     </template>
@@ -76,33 +65,18 @@
     <v-btn text dark  @click.native="snackbar.show = false">Close</v-btn>
   </v-snackbar>
 
-  <!-- <v-snackbar
-    top right :timeout="9999999999"
-    v-model="appUpdateAvailable"
-  >
-    New Update available.
-    <v-btn color="purple" dark  @click.native="updateApp">Refresh</v-btn>
-  </v-snackbar> -->
-
-
 </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
   export default {
     data: () => ({
       showUi: false,
-      snackbar: {},
-      websiteLink: 'https://godwingabriel.xyz',
-      appUpdateAvailable: window.appUpdateAvailable
+      snackbar: {}
     }),
-    watch: {
-      
-    },
     computed: {
-      ...mapGetters([
-        
-      ]),
       ...mapState([
         'auth',
       ]),
@@ -112,14 +86,7 @@
       initialize(){
       
         this.showUi = true
-      },
-      updateApp(e){
-        
-        window.location.reload(true)
       }
-    },
-    components: {
-      
     },
     mounted(){
       this.$firebase.auth().onAuthStateChanged(user =>{
@@ -132,23 +99,18 @@
       this.initialize()
 
       this.$eventBus.$on('Snackbar', data => {
+        data.show = true
         this.snackbar = data
       })
 
     },
   }
 
-  // window.appUpdateAvailable = true
-  import { mapState, mapGetters } from 'vuex'
 </script>
 
 <style>
   #hide-action {
     color: #fff;
-    text-decoration: none;
-  }
-  #me {
-    color: #8bc34a;
     text-decoration: none;
   }
   .fade-enter-active, .fade-leave-active {

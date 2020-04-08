@@ -3,7 +3,10 @@
     <v-container style="min-height: 100vh;">
       <v-toolbar color="transparent" flat >
         <v-spacer></v-spacer>
-        <v-btn color="success" @click="new_series_dialog = true">New Series</v-btn>
+        <v-btn color="success" @click="new_series_dialog = true">
+          <v-icon class="mr-1">mdi-plus</v-icon>
+          New Series
+        </v-btn>
       </v-toolbar>
 
       <v-row>
@@ -19,7 +22,7 @@
                 <div class="overline mb-4">{{$helpers.parseDate(item.date_created, true)}}</div>
                 <v-tooltip bottom>
                   <template v-slot:activator="{on}">
-                    <v-list-item-title class="headline mb-1" v-on="on">
+                    <v-list-item-title class="title mb-1" v-on="on">
                       {{item.title}}
                     </v-list-item-title>
 

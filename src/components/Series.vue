@@ -8,9 +8,6 @@
           
 
           <!-- <transition name="fade"> -->
-            <v-btn icon @click.native="$router.back()">
-              <v-icon>mdi-arrow-left</v-icon>
-            </v-btn>
 
             <v-skeleton-loader
               class="mx-auto"
@@ -20,6 +17,20 @@
 
             <v-card outlined min-height="300" tile v-else
               >
+              <v-toolbar
+                color="primary"
+                dark flat
+              >
+                <v-btn icon @click.native="$router.back()">
+                  <v-icon>mdi-arrow-left</v-icon>
+                </v-btn>
+
+                <v-spacer></v-spacer>
+
+                <v-btn icon>
+                  <v-icon>mdi-magnify</v-icon>
+                </v-btn>
+              </v-toolbar>
               <v-img :src="series.cover_image || require('@/assets/tsg.jpg')" width="100%" height="200">
 
               </v-img>
@@ -42,53 +53,44 @@
                 </v-chip>
                 
                 <v-subheader class="mt-5">All Tracks</v-subheader>
-                <!-- <v-list dense> -->
+                <v-list dense>
 
                   <template v-for="(sermon,i) in series.sermons">
-                    <v-card :key="i + 6473" flat>
+                    <!-- <v-card :key="i + 6473" flat>
                       <v-card-actions>
                         <span class="mr-3">{{sermon.track}} - Track {{sermon.track_number}}</span>
                         <span>({{sermon.size ? (sermon.size/1000000).toFixed(2) : '?'}} Mb)</span>
                         <v-spacer></v-spacer>
                         <v-icon @click="copyToClipboard(sermon.audio_file)" class="mr-4">mdi-share-variant</v-icon>
-                        <v-btn icon :href="sermon.audio_file" target="_blank">
-                          <v-icon>mdi-download</v-icon>
-                        </v-btn>
+                        
                       </v-card-actions>
-                    </v-card>
+                    </v-card> -->
                     <v-divider :key="i"></v-divider>
 
-                    <!-- <v-list-item :key="i + 6473">
+                    <v-list-item :key="i + 6473">
                       <v-list-item-avatar>
                         <v-icon>mdi-music</v-icon>
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-title>
-                          {{sermon.track}}
+                          {{sermon.track}} - Track {{sermon.track_number}}
                         </v-list-item-title>
+                        <v-list-item-subtitle>
+                          Track {{sermon.track_number}}
+                          <span class="mx-1">|</span> 
+                          <span>{{sermon.size ? (sermon.size/1000000).toFixed(2) : '?'}} Mb</span>
+                        </v-list-item-subtitle>
                       </v-list-item-content>
                       <v-list-item-action>
-                        <v-menu offset-y>
-                          <template v-slot:activator="{on}">
-                            <v-btn text icon v-on="on">
-                              <v-icon>mdi-dots-vertical</v-icon>
-                            </v-btn>
-                          </template>
-                          <v-list dense>
-                            <v-list-item :href="sermon.audio_file">
-                              <v-list-item-title>Download</v-list-item-title>
-                            </v-list-item>
-                            <v-list-item @click="''">
-                              <v-list-item-title>Copy Link</v-list-item-title>
-                            </v-list-item>
-                          </v-list>
-                        </v-menu>
+                        <v-btn icon @click="downloadFile(sermon)">
+                          <v-icon>mdi-download</v-icon>
+                        </v-btn>
 
                       </v-list-item-action>
-                    </v-list-item> -->
+                    </v-list-item>
 
                   </template>
-                <!-- </v-list> -->
+                </v-list>
               </v-card-text>
             </v-card>
           <!-- </transition> -->
@@ -158,7 +160,15 @@ export default {
       }
     },
     downloadFile(sermon){
-      window.location.href = sermon.audio_file
+      var el = document.createElement('a')
+      el.setAttribute('href', sermon.audio_file)
+      el.setAttribute('target', '_blank')
+      el.click()
+
+      this.$eventBus.$emit('Snackbar', {
+        message: 'You download has started!',
+        color: 'purple'
+      })
     }
   },
   mounted(){

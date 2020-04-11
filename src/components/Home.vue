@@ -46,7 +46,7 @@
               </template>
 
               <template v-else>
-                <v-col v-for="(item, i) in items.slice(0,docs_per_page*page)" :key="i" cols="12" sm="4" md="3">
+                <v-col v-for="(item, i) in items" :key="i" cols="12" sm="4" md="3">
 
                   <v-card outlined height="300" tile 
                   
